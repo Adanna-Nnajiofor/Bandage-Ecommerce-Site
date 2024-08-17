@@ -10,6 +10,8 @@ const FeaturedProducts: React.FC = () => {
   const [isShowingMore, setIsShowingMore] = useState(false);
   const router = useRouter();
 
+  const visibleProductsData = ProductsData.slice(0, visibleProducts);
+
   const handleProductSelect = (productId: number) => {
     setShowNotification(true);
     router.push(`/shop-page?id=${productId}`);
@@ -29,7 +31,7 @@ const FeaturedProducts: React.FC = () => {
     }
   };
 
-  const visibleProductsData = ProductsData.slice(0, visibleProducts);
+  
 
   return (
     <div className="w-full flex flex-col gap-6 md:gap-10 p-6 md:px-24 md:py-12">

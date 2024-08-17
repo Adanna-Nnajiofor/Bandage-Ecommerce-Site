@@ -24,6 +24,8 @@ const ShoppingCart = () => {
     decreaseQuantity,
   } = useCart();
 
+  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   const handleIncreaseQuantity = (id: number) => {
     increaseQuantity(id);
   };
@@ -59,7 +61,7 @@ const ShoppingCart = () => {
     return getSubtotalPrice();
   };
 
-  const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
 
   return (
     <div className="bg-[#FAFAFA] flex flex-col p-6 md:px-24 md:py-12 w-full h-auto">

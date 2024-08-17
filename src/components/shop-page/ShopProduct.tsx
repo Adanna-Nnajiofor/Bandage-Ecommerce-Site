@@ -36,6 +36,12 @@ const ShopProduct: React.FC = () => {
   const [reviewCount, setReviewCount] = useState<number>(0);
   const [notification, setNotification] = useState<string | null>(null);
 
+  const { incrementCart, incrementFavorite } = useCartFavorites();
+
+  const { addToCart } = useCart();
+
+  const { addToWishlist } = useWishlist();
+
   useEffect(() => {
     if (id) {
       const productId = parseInt(id as string, 10);
@@ -70,12 +76,6 @@ const ShopProduct: React.FC = () => {
       // router.push(`/products?id=${selectedProduct.id}&image=${prevIndex}`);
     }
   };
-
-  const { incrementCart, incrementFavorite } = useCartFavorites();
-
-  const { addToCart } = useCart();
-
-  const { addToWishlist } = useWishlist();
 
   const handleAddToCart = () => {
     incrementCart();
