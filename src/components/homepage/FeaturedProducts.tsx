@@ -31,8 +31,6 @@ const FeaturedProducts: React.FC = () => {
     }
   };
 
-  
-
   return (
     <div className="w-full flex flex-col gap-6 md:gap-10 p-6 md:px-24 md:py-12">
       {showNotification && (

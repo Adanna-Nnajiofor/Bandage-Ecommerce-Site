@@ -1,7 +1,8 @@
 export interface WishlistItem {
   id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  quantity: number;
+  imageSrc: string[];
+  title: string;
+  department: string;
+  oldPrice: string;
+  newPrice: string;
 }

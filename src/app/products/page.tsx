@@ -13,7 +13,6 @@ import { useCartFavorites } from "../../contexts/CartFavoritesContext";
 import { useCart } from "../../contexts/CartContext";
 import { useWishlist } from "../../contexts/WishlistContext";
 import Notification from "../../components/Notification";
-import { useProduct } from "../../contexts/ProductContext";
 
 interface Product {
   id: number;
@@ -24,21 +23,15 @@ interface Product {
   newPrice: string;
 }
 
-const ShopProduct: React.FC = () => {
+const Products: React.FC = () => {
   const pathname = usePathname();
   const isShopActive = pathname === "/shop-page";
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  // const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  // const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-  const {
-    currentImageIndex,
-    setCurrentImageIndex,
-    selectedProduct,
-    setSelectedProduct,
-  } = useProduct();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [rating, setRating] = useState<number>(0);
   const [reviewCount, setReviewCount] = useState<number>(0);
   const [notification, setNotification] = useState<string | null>(null);
@@ -57,7 +50,7 @@ const ShopProduct: React.FC = () => {
         setSelectedProduct(product);
         const imageIndex = searchParams.get("image");
         if (imageIndex) {
-          setCurrentImageIndex(parseInt(imageIndex, 18));
+          setCurrentImageIndex(parseInt(imageIndex, 10));
         } else {
           setCurrentImageIndex(0);
         }
@@ -76,7 +69,7 @@ const ShopProduct: React.FC = () => {
     if (productImages.length > 0) {
       const nextIndex = (currentImageIndex + 1) % productImages.length;
       setCurrentImageIndex(nextIndex);
-      // router.push(`/shop-page?id=${selectedProduct.id}&image=${nextIndex}`);
+      //   router.push(`/products?id=${selectedProduct.id}&image=${nextIndex}`);
     }
   };
 
@@ -85,7 +78,7 @@ const ShopProduct: React.FC = () => {
       const prevIndex =
         (currentImageIndex - 1 + productImages.length) % productImages.length;
       setCurrentImageIndex(prevIndex);
-      // router.push(`/shop-page?id=${selectedProduct.id}&image=${prevIndex}`);
+      //   router.push(`/products?id=${selectedProduct.id}&image=${prevIndex}`);
     }
   };
 
@@ -268,4 +261,4 @@ const ShopProduct: React.FC = () => {
   );
 };
 
-export default ShopProduct;
+export default Products;
