@@ -8,6 +8,7 @@ import { CartFavoritesProvider } from "../contexts/CartFavoritesContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
 import { ProductProvider } from "@/contexts/ProductContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,17 +25,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CartFavoritesProvider>
-          <WishlistProvider>
-            <CartProvider>
-              <ProductProvider>
-                <Navbar />
-                {children}
-                <Footer />
-              </ProductProvider>
-            </CartProvider>
-          </WishlistProvider>
-        </CartFavoritesProvider>
+        <AuthProvider>
+          <CartFavoritesProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <ProductProvider>
+                  <Navbar />
+                  {children}
+                  <Footer />
+                </ProductProvider>
+              </CartProvider>
+            </WishlistProvider>
+          </CartFavoritesProvider>
+        </AuthProvider>
       </body>
     </html>
   );

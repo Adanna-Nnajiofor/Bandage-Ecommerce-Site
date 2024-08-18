@@ -1,22 +1,44 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login: React.FC = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    const storedEmail = localStorage.getItem("userEmail");
+    const storedPassword = localStorage.getItem("userPassword");
+
+    // Check if the user has registered
+    if (storedEmail && storedPassword) {
+      // Validate the entered credentials
+      if (email === storedEmail && password === storedPassword) {
+        console.log("Login successful");
+        // Redirect to the desired page (like homepage or dashboard)
+        router.push("/checkout-page");
+      } else {
+        // Show an error if credentials are incorrect
+        setErrorMessage("Invalid email or password. Please try again.");
+      }
+    } else {
+      // If no user is registered, prompt the user to register
+      setErrorMessage("No account found. Please register first.");
+    }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
         <h1 className="text-2xl font-semibold text-center mb-6">Login</h1>
+        {errorMessage && (
+          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label

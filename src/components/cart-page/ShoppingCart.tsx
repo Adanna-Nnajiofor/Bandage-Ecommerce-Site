@@ -8,6 +8,8 @@ import { IoIosStar } from "react-icons/io";
 import { FiTrash } from "react-icons/fi";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { useCart } from "../../contexts/CartContext";
+import { useAuth } from "../../contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const ShoppingCart = () => {
   const pathname = usePathname();
@@ -23,6 +25,9 @@ const ShoppingCart = () => {
     increaseQuantity,
     decreaseQuantity,
   } = useCart();
+
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
 
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
@@ -61,7 +66,13 @@ const ShoppingCart = () => {
     return getSubtotalPrice();
   };
 
-
+  const handleClick = () => {
+    if (isLoggedIn) {
+      router.push("/checkout-page");
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <div className="bg-[#FAFAFA] flex flex-col p-6 md:px-24 md:py-12 w-full h-auto">
@@ -399,7 +410,10 @@ const ShoppingCart = () => {
           </p>
 
           <div className="w-full flex justify-center">
-            <button className="bg-[#23A6F0] w-full text-white font-montserrat font-bold py-4 px-6 rounded-lg">
+            <button
+              onClick={handleClick}
+              className="bg-[#23A6F0] w-full text-white font-montserrat font-bold py-4 px-6 rounded-lg"
+            >
               Proceed to Checkout
             </button>
           </div>

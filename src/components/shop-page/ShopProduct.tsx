@@ -14,6 +14,7 @@ import { useCart } from "../../contexts/CartContext";
 import { useWishlist } from "../../contexts/WishlistContext";
 import Notification from "../../components/Notification";
 import { useProduct } from "../../contexts/ProductContext";
+import Modal from "../../components/Modal";
 
 interface Product {
   id: number;
@@ -42,12 +43,16 @@ const ShopProduct: React.FC = () => {
   const [rating, setRating] = useState<number>(0);
   const [reviewCount, setReviewCount] = useState<number>(0);
   const [notification, setNotification] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { incrementCart, incrementFavorite } = useCartFavorites();
 
   const { addToCart } = useCart();
 
   const { wishlist, dispatch } = useWishlist();
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     if (id) {
@@ -76,6 +81,7 @@ const ShopProduct: React.FC = () => {
     if (productImages.length > 0) {
       const nextIndex = (currentImageIndex + 1) % productImages.length;
       setCurrentImageIndex(nextIndex);
+      return nextIndex;
       // router.push(`/shop-page?id=${selectedProduct.id}&image=${nextIndex}`);
     }
   };
@@ -85,6 +91,7 @@ const ShopProduct: React.FC = () => {
       const prevIndex =
         (currentImageIndex - 1 + productImages.length) % productImages.length;
       setCurrentImageIndex(prevIndex);
+      return prevIndex;
       // router.push(`/shop-page?id=${selectedProduct.id}&image=${prevIndex}`);
     }
   };
@@ -249,7 +256,10 @@ const ShopProduct: React.FC = () => {
             >
               <AiOutlineShoppingCart size={20} className="text-[#252B42]" />
             </div>
-            <div className="w-[40px] h-[40px] p-2 rounded-full border border-[#E8E8E8] flex items-center justify-center hover:bg-blue-100 cursor-pointer">
+            <div
+              className="w-[40px] h-[40px] p-2 rounded-full border border-[#E8E8E8] flex items-center justify-center hover:bg-blue-100 cursor-pointer"
+              onClick={openModal}
+            >
               <IoEye size={20} className="text-[#252B42] " />
             </div>
           </div>
@@ -264,6 +274,15 @@ const ShopProduct: React.FC = () => {
           className="w-full h-full object-cover"
         />
       </div>
+      {/* Modal Component */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        imageSrc={productImages[currentImageIndex]}
+        altText={selectedProduct.title}
+        onNext={handleNextImage}
+        onPrev={handlePrevImage}
+      />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -13,9 +14,15 @@ const Register: React.FC = () => {
       alert("Passwords don't match");
       return;
     }
-    // Handle registration logic here
+
+    
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userPassword", password);
+
     console.log("Email:", email);
     console.log("Password:", password);
+
+    // router.push("/login");
   };
 
   return (
