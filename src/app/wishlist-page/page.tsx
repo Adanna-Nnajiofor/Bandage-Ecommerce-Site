@@ -1,9 +1,13 @@
 "use client";
 import Link from "next/link";
-import { useWishlist } from "../../contexts/WishlistContext";
+import { useWishlist } from "../../contexts/WishlistContext"; // Adjust path if necessary
 
 const WishlistPage: React.FC = () => {
-  const { wishlist, removeFromWishlist } = useWishlist();
+  const { wishlist, dispatch } = useWishlist(); // Access wishlist and dispatch
+
+  const handleRemove = (productId: number) => {
+    dispatch({ type: "REMOVE_FROM_WISHLIST", payload: productId });
+  };
 
   return (
     <div className="py-10 px-20">
@@ -15,7 +19,7 @@ const WishlistPage: React.FC = () => {
           {wishlist.map((product) => (
             <div key={product.id} className="border p-4">
               <img
-                src={product.imageSrc[0]}
+                src={product.imageSrc[0]} // Assuming it's an array, adjust if necessary
                 alt={product.title}
                 className="w-full h-40 object-cover"
               />
@@ -23,7 +27,7 @@ const WishlistPage: React.FC = () => {
               <p>{product.newPrice}</p>
               <button
                 className="text-red-500 mt-2"
-                onClick={() => removeFromWishlist(product.id)}
+                onClick={() => handleRemove(product.id)} // Use dispatch instead of removeFromWishlist
               >
                 Remove from wishlist
               </button>

@@ -1,8 +1,7 @@
-// contexts/WishlistContext.tsx
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useReducer, ReactNode } from "react";
 
-interface Product {
+interface WishlistItem {
   id: number;
   imageSrc: string[];
   title: string;
@@ -11,40 +10,58 @@ interface Product {
   newPrice: string;
 }
 
-interface WishlistContextType {
-  wishlist: Product[];
-  addToWishlist: (product: Product) => void;
-  removeFromWishlist: (id: number) => void;
+interface WishlistState {
+  wishlist: WishlistItem[];
 }
+
+type Action =
+  | { type: "ADD_TO_WISHLIST"; payload: WishlistItem }
+  | { type: "REMOVE_FROM_WISHLIST"; payload: number };
+
+interface WishlistContextType {
+  wishlist: WishlistItem[];
+  dispatch: React.Dispatch<Action>;
+}
+
+const initialState: WishlistState = {
+  wishlist: [],
+};
+
+const WishlistReducer = (
+  state: WishlistState,
+  action: Action
+): WishlistState => {
+  switch (action.type) {
+    case "ADD_TO_WISHLIST":
+      return { ...state, wishlist: [...state.wishlist, action.payload] };
+    case "REMOVE_FROM_WISHLIST":
+      return {
+        ...state,
+        wishlist: state.wishlist.filter((item) => item.id !== action.payload),
+      };
+    default:
+      return state;
+  }
+};
 
 const WishlistContext = createContext<WishlistContextType | undefined>(
   undefined
 );
 
-export const WishlistProvider = ({ children }: { children: ReactNode }) => {
-  const [wishlist, setWishlist] = useState<Product[]>([]);
-
-  const addToWishlist = (product: Product) => {
-    setWishlist((prevWishlist) => [...prevWishlist, product]);
-  };
-
-  const removeFromWishlist = (id: number) => {
-    setWishlist((prevWishlist) =>
-      prevWishlist.filter((item) => item.id !== id)
-    );
-  };
+export const WishlistProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [state, dispatch] = useReducer(WishlistReducer, initialState);
 
   return (
-    <WishlistContext.Provider
-      value={{ wishlist, addToWishlist, removeFromWishlist }}
-    >
+    <WishlistContext.Provider value={{ wishlist: state.wishlist, dispatch }}>
       {children}
     </WishlistContext.Provider>
   );
 };
 
 export const useWishlist = () => {
-  const context = useContext(WishlistContext);
+  const context = React.useContext(WishlistContext);
   if (!context) {
     throw new Error("useWishlist must be used within a WishlistProvider");
   }

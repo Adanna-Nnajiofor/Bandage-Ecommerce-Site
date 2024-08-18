@@ -40,7 +40,7 @@ const ShopProduct: React.FC = () => {
 
   const { addToCart } = useCart();
 
-  const { addToWishlist } = useWishlist();
+  const { wishlist, dispatch } = useWishlist();
 
   useEffect(() => {
     if (id) {
@@ -93,9 +93,12 @@ const ShopProduct: React.FC = () => {
   const handleAddToFavorite = () => {
     incrementFavorite();
     if (selectedProduct) {
-      addToWishlist(selectedProduct);
-      setNotification("Product added to wishlist");
-      // router.push("/wishlist-page");
+      if (!wishlist.find((item) => item.id === selectedProduct.id)) {
+        dispatch({ type: "ADD_TO_WISHLIST", payload: selectedProduct });
+        setNotification("Product added to wishlist");
+      } else {
+        setNotification("Product is already in the wishlist");
+      }
     }
   };
 
