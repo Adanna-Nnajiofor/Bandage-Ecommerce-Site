@@ -1,17 +1,19 @@
-import ImageLogos from "@/components/shop-page/ImageLogos";
+import React, { Suspense } from "react";
+import ShopProduct from "@/components/shop-page/ShopProduct";
 import Information from "@/components/shop-page/Information";
 import SellerProducts from "@/components/shop-page/SellerProducts";
-import ShopProduct from "@/components/shop-page/ShopProduct";
-import React from "react";
+import ImageLogos from "@/components/shop-page/ImageLogos";
 
 const ShopPage = () => {
   return (
-    <div>
-      <ShopProduct />
-      <Information />
-      <SellerProducts />
-      <ImageLogos />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div>
+        <ShopProduct />
+        <Information />
+        <SellerProducts />
+        <ImageLogos />
+      </div>
+    </Suspense>
   );
 };
 
