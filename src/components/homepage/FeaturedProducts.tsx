@@ -54,7 +54,7 @@ const FeaturedProducts: React.FC = () => {
         {visibleProductsData.map((product) => (
           <div
             key={product.id}
-            className="w-full flex flex-col gap-3 mt-6 cursor-pointer border border-white hover:border-4 hover:border-green-300 "
+            className="w-full flex flex-col gap-3 mt-6 cursor-pointer border border-white hover:border-2 hover:border-gray-300 "
             onClick={() => handleProductSelect(product.id)}
           >
             <Image

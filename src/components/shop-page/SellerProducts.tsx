@@ -27,7 +27,7 @@ const SellerProducts: React.FC = () => {
             key={product.id}
             href={`/shop-page?id=${product.id}`}
             passHref
-            className="w-full flex flex-col gap-3 mt-4 bg-[#FFFFFF] hover:border-4 hover:border-green-300"
+            className="w-full flex flex-col gap-3 mt-4 bg-[#FFFFFF] hover:border-2 hover:border-gray-300"
           >
             <img
               src={
