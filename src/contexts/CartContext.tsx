@@ -1,7 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useCallback } from "react";
 
-// Define the type for CartItem
 interface CartItem {
   id: number;
   imageSrc: string[];
@@ -13,7 +12,6 @@ interface CartItem {
   price: string;
 }
 
-// Define the type for CartContext
 interface CartContextType {
   cartItems: CartItem[];
   addToCart: (product: CartItem) => void;
@@ -23,15 +21,12 @@ interface CartContextType {
   decreaseQuantity: (id: number) => void;
 }
 
-// Create the Cart context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Type for CartProvider Props
 interface CartProviderProps {
   children: React.ReactNode;
 }
 
-// Provide Cart context to children components
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
@@ -94,7 +89,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use the CartContext
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

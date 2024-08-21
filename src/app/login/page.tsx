@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -12,22 +13,17 @@ const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const storedEmail = localStorage.getItem("userEmail");
-    const storedPassword = localStorage.getItem("userPassword");
+    const storedEmail = Cookies.get("userEmail");
+    const storedPassword = Cookies.get("userPassword");
 
-    // Check if the user has registered
     if (storedEmail && storedPassword) {
-      // Validate the entered credentials
       if (email === storedEmail && password === storedPassword) {
         console.log("Login successful");
-        // Redirect to the desired page (like homepage or dashboard)
         router.push("/checkout-page");
       } else {
-        // Show an error if credentials are incorrect
         setErrorMessage("Invalid email or password. Please try again.");
       }
     } else {
-      // If no user is registered, prompt the user to register
       setErrorMessage("No account found. Please register first.");
     }
   };

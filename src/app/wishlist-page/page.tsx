@@ -1,12 +1,24 @@
 "use client";
 import Link from "next/link";
-import { useWishlist } from "../../contexts/WishlistContext"; // Adjust path if necessary
+import { useWishlist } from "../../contexts/WishlistContext";
+import { useCart } from "../../contexts/CartContext";
+import { useRouter } from "next/navigation";
 
 const WishlistPage: React.FC = () => {
-  const { wishlist, dispatch } = useWishlist(); // Access wishlist and dispatch
+  const { wishlist, dispatch: wishlistDispatch } = useWishlist();
+  const { addToCart } = useCart();
+  const router = useRouter();
 
   const handleRemove = (productId: number) => {
-    dispatch({ type: "REMOVE_FROM_WISHLIST", payload: productId });
+    wishlistDispatch({ type: "REMOVE_FROM_WISHLIST", payload: productId });
+  };
+
+  const handleAddToCart = (product: any) => {
+    addToCart(product);
+  };
+
+  const handleProductClick = (productId: number) => {
+    router.push(`/shop-page/${productId}`);
   };
 
   return (
@@ -17,9 +29,13 @@ const WishlistPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {wishlist.map((product) => (
-            <div key={product.id} className="border p-4">
+            <div
+              key={product.id}
+              className="border p-4 cursor-pointer"
+              onClick={() => handleProductClick(product.id)}
+            >
               <img
-                src={product.imageSrc[0]} // Assuming it's an array, adjust if necessary
+                src={product.imageSrc[0]}
                 alt={product.title}
                 className="w-full h-40 object-cover"
               />
@@ -27,9 +43,21 @@ const WishlistPage: React.FC = () => {
               <p>{product.newPrice}</p>
               <button
                 className="text-red-500 mt-2"
-                onClick={() => handleRemove(product.id)} // Use dispatch instead of removeFromWishlist
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemove(product.id);
+                }}
               >
                 Remove from wishlist
+              </button>
+              <button
+                className="text-green-500 mt-2 ml-4"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToCart(product);
+                }}
+              >
+                Add to cart
               </button>
             </div>
           ))}

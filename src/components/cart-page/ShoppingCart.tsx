@@ -62,7 +62,6 @@ const ShoppingCart = () => {
   };
 
   const getTotalPrice = () => {
-    // Assuming there are no additional fees or discounts for now
     return getSubtotalPrice();
   };
 
@@ -228,7 +227,6 @@ const ShoppingCart = () => {
                       </div>
                     </div>
 
-                    {/* Remove Button Below the border */}
                     <div className="flex flex-col">
                       <div
                         className="flex gap-2 mt-6 w-1/2"

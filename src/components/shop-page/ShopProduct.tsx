@@ -81,8 +81,8 @@ const ShopProduct: React.FC = () => {
     if (productImages.length > 0) {
       const nextIndex = (currentImageIndex + 1) % productImages.length;
       setCurrentImageIndex(nextIndex);
-      return nextIndex;
-      // router.push(`/shop-page?id=${selectedProduct.id}&image=${nextIndex}`);
+
+      router.push(`/shop-page?id=${selectedProduct.id}&image=${nextIndex}`);
     }
   };
 
@@ -91,8 +91,8 @@ const ShopProduct: React.FC = () => {
       const prevIndex =
         (currentImageIndex - 1 + productImages.length) % productImages.length;
       setCurrentImageIndex(prevIndex);
-      return prevIndex;
-      // router.push(`/shop-page?id=${selectedProduct.id}&image=${prevIndex}`);
+
+      router.push(`/shop-page?id=${selectedProduct.id}&image=${prevIndex}`);
     }
   };
 

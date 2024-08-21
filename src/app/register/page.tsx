@@ -2,8 +2,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const Register: React.FC = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,14 +17,11 @@ const Register: React.FC = () => {
       return;
     }
 
-    
-    localStorage.setItem("userEmail", email);
-    localStorage.setItem("userPassword", password);
+    Cookies.set("userEmail", email, { expires: 7 });
+    Cookies.set("userPassword", password, { expires: 7 });
 
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    // router.push("/login");
+    console.log("Registration successful");
+    router.push("/login");
   };
 
   return (

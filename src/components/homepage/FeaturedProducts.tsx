@@ -34,7 +34,7 @@ const FeaturedProducts: React.FC = () => {
   return (
     <div className="w-full flex flex-col gap-6 md:gap-10 p-6 md:px-24 md:py-12">
       {showNotification && (
-        <div className="fixed top-28 left-0 w-full bg-green-500 text-white text-center py-4 font-montserrat justify-center items-center">
+        <div className="fixed bottom-0 right-0 w-auto bg-green-500 text-white text-center py-2 px-2 font-montserrat justify-center items-center">
           <p>Product selected successfully! Proceed to the shop.</p>
         </div>
       )}

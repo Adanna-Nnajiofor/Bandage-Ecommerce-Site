@@ -7,6 +7,8 @@ interface ProductContextType {
   setCurrentImageIndex: (index: number) => void;
   selectedProduct: Product | null;
   setSelectedProduct: (product: Product | null) => void;
+  products: Product[];
+  setProducts: (products: Product[]) => void;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -16,6 +18,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
 
   return (
     <ProductContext.Provider
@@ -24,6 +27,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
         setCurrentImageIndex,
         selectedProduct,
         setSelectedProduct,
+        products,
+        setProducts,
       }}
     >
       {children}
