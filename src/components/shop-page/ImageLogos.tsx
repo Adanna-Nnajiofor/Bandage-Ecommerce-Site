@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const ImageLogos: React.FC = () => {
   return (
-    <div className="flex flex-col gap-[60px] bg-[#FAFAFA] md:flex-row mx-auto px-6 py-16 md:px-24 md:py-12 w-full h-auto justify-between items-center">
+    <div className="flex flex-col gap-[60px] bg-[#FAFAFA] md:flex-row mx-auto px-6 py-16 md:px-24 md:py-12 w-full h-auto md:justify-between items-center justify-center">
       <div className="w-full h-auto  flex ">
         <Image
           src="/images/logo-1.png"

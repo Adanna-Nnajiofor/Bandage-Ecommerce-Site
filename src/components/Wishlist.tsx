@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { useWishlist } from "../contexts/WishlistContext"; // Adjust the path as needed
+import { useWishlist } from "../contexts/WishlistContext";
 import Image from "next/image";
 
 const Wishlist = () => {
-  const { wishlist, dispatch } = useWishlist(); // Access wishlist and dispatch from context
+  const { wishlist, dispatch } = useWishlist();
 
   const handleRemove = (productId: number) => {
     dispatch({ type: "REMOVE_FROM_WISHLIST", payload: productId });

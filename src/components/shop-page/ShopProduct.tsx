@@ -31,9 +31,8 @@ const ShopProduct: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const imageParam = searchParams.get("image");
 
-  // const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  // const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const {
     currentImageIndex,
     setCurrentImageIndex,
@@ -56,7 +55,7 @@ const ShopProduct: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      const productId = parseInt(id as string, 10);
+      const productId = parseInt(id, 10);
       const product = ProductsData.find((p) => p.id === productId);
       if (product) {
         setSelectedProduct(product);
@@ -68,32 +67,36 @@ const ShopProduct: React.FC = () => {
         }
       }
     }
-  }, [id, searchParams]);
+  }, [id, searchParams, setSelectedProduct, setCurrentImageIndex]);
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setCurrentImageIndex(0);
+    }
+  }, [selectedProduct]);
 
   if (!selectedProduct)
     return <div className="ml-20">Select a product to view details</div>;
 
-  const productImages: string[] = Array.isArray(selectedProduct.imageSrc)
+  const productImages: string[] = Array.isArray(selectedProduct?.imageSrc)
     ? selectedProduct.imageSrc
-    : [selectedProduct.imageSrc];
+    : [selectedProduct?.imageSrc || ""];
 
   const handleNextImage = () => {
-    if (productImages.length > 0) {
-      const nextIndex = (currentImageIndex + 1) % productImages.length;
-      setCurrentImageIndex(nextIndex);
-
-      router.push(`/shop-page?id=${selectedProduct.id}&image=${nextIndex}`);
-    }
+    const nextIndex = (currentImageIndex + 1) % productImages.length;
+    setCurrentImageIndex(nextIndex);
+    router.push(
+      `/shop-page?productid=${selectedProduct.id}&image=${nextIndex}`
+    );
   };
 
   const handlePrevImage = () => {
-    if (productImages.length > 0) {
-      const prevIndex =
-        (currentImageIndex - 1 + productImages.length) % productImages.length;
-      setCurrentImageIndex(prevIndex);
-
-      router.push(`/shop-page?id=${selectedProduct.id}&image=${prevIndex}`);
-    }
+    const prevIndex =
+      (currentImageIndex - 1 + productImages.length) % productImages.length;
+    setCurrentImageIndex(prevIndex);
+    router.push(
+      `/shop-page?productid=${selectedProduct.id}&image=${prevIndex}`
+    );
   };
 
   const handleAddToCart = () => {
@@ -134,7 +137,6 @@ const ShopProduct: React.FC = () => {
 
   return (
     <div className="bg-[#FAFAFA] flex flex-col p-6 md:px-24 md:py-12 w-full h-auto">
-      {/* Notification component */}
       {notification && (
         <Notification
           message={notification}
@@ -274,7 +276,7 @@ const ShopProduct: React.FC = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      {/* Modal Component */}
+
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}

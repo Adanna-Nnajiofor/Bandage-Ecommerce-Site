@@ -1,11 +1,14 @@
 export type Product = {
   id: number;
   title: string;
-  imageSrc: string | string[];
+  imageSrc: string[];
   newPrice: string;
+  oldPrice: string;
+  description: string;
+  department: string;
 };
 
-export const ProductsData = [
+export const ProductsData: Product[] = [
   {
     id: 1,
     imageSrc: ["/images/card-1.png"],
@@ -13,6 +16,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$16.48",
     newPrice: "$6.48",
+    description: "A course on graphic design.",
   },
   {
     id: 2,
@@ -21,6 +25,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$18.00",
     newPrice: "$8.00",
+    description: "A course on graphic design.",
   },
   {
     id: 3,
@@ -29,6 +34,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 4,
@@ -37,6 +43,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 5,
@@ -45,6 +52,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 6,
@@ -54,6 +62,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 7,
@@ -62,6 +71,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 8,
@@ -70,6 +80,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 9,
@@ -78,6 +89,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 10,
@@ -86,6 +98,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 11,
@@ -94,6 +107,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$16.48",
     newPrice: "$6.48",
+    description: "A course on graphic design.",
   },
   {
     id: 12,
@@ -102,6 +116,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$18.00",
     newPrice: "$8.00",
+    description: "A course on graphic design.",
   },
   {
     id: 13,
@@ -110,6 +125,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 14,
@@ -118,6 +134,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 15,
@@ -126,6 +143,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 16,
@@ -134,6 +152,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 17,
@@ -142,6 +161,7 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
   {
     id: 18,
@@ -150,5 +170,6 @@ export const ProductsData = [
     department: "English Department",
     oldPrice: "$20.00",
     newPrice: "$10.00",
+    description: "A course on graphic design.",
   },
 ];

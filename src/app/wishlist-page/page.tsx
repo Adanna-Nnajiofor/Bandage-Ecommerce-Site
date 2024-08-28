@@ -14,7 +14,11 @@ const WishlistPage: React.FC = () => {
   };
 
   const handleAddToCart = (product: any) => {
-    addToCart(product);
+    addToCart({
+      ...product,
+      quantity: 1,
+      price: product.newPrice,
+    });
   };
 
   const handleProductClick = (productId: number) => {
